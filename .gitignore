@@ -1,0 +1,34 @@
+# test files
+quarantine
+log.txt
+my_test_dir/
+Antivirus.cpp
+test_signature_generator/inf_file_tree.txt
+
+# system files
+-p/
+venv/
+.idea/
+.vscode/
+*.vscode/
+*.idea/
+
+# build files
+/build/
+.DS_Store
+Thumbs.db
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.log
+
+# something
+*.o
+*.obj
+*.exe
+*.dll
+*.lib
+*.pdb
+*.dSYM
+*.swp
