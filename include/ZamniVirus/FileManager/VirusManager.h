@@ -19,7 +19,7 @@ public:
     std::vector<Infected> get_quarantined() { return this->to_quarantine; };
 
 private:
-    void check_err(std::vector<int>* nums);
+    void check_err(std::vector<int>& nums);
     void add_to_infected(std::vector<ScanResult> results);
 };
     

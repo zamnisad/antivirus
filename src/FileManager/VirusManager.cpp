@@ -20,12 +20,12 @@ void VirusManager::choose_actions() {
         std::string input;
         std::getline(std::cin, input);
         
-        std::vector<int>* numbers;
+        std::vector<int> numbers;
         std::istringstream iss(input);
         int num;
         
         while (iss >> num) {
-            numbers->push_back(num);
+            numbers.push_back(num);
         }
         
         return numbers;
@@ -40,8 +40,8 @@ void VirusManager::choose_actions() {
 
     check_err(quarantine_nums);
 
-    std::set<int> remove_set(remove_nums->begin(), remove_nums->end());
-    std::set<int> quarantine_set(quarantine_nums->begin(), quarantine_nums->end());
+    std::set<int> remove_set(remove_nums.begin(), remove_nums.end());
+    std::set<int> quarantine_set(quarantine_nums.begin(), quarantine_nums.end());
 
     std::vector<int> intersection;
     std::set_intersection(
@@ -53,41 +53,46 @@ void VirusManager::choose_actions() {
     if (!intersection.empty()) {
         logger.print_both_numbers(intersection);
     
-        remove_nums->erase(
-            std::remove_if(remove_nums->begin(), remove_nums->end(), [&](int x) {
+        remove_nums.erase(
+            std::remove_if(remove_nums.begin(), remove_nums.end(), [&](int x) {
                 return quarantine_set.count(x) > 0;
             }),
-            remove_nums->end()
+            remove_nums.end()
         );
     }
 
-    logger.print_result_lists(*remove_nums, *quarantine_nums);
+    logger.print_result_lists(remove_nums, quarantine_nums);
 
-    for (int idx : *remove_nums) {
+    for (int idx : remove_nums) {
         to_remove.push_back(infected[idx - 1]);
     }
-    for (int idx : *quarantine_nums) {
+    for (int idx : quarantine_nums) {
         to_quarantine.push_back(infected[idx - 1]);
     }
 }
 
-void VirusManager::check_err(std::vector<int>* nums) {
-    if (nums->back() == -1) {
-        nums->pop_back();
-        for (int inf = 1; inf < infected.size() + 1; inf++) {
-            nums->push_back(inf);
-        }
+void VirusManager::check_err(std::vector<int>& nums) {
+    if (nums.empty()) {
+        return;
+    }
+
+    if (std::find(nums.begin(), nums.end(), -1) != nums.end()) {
+        nums.clear();
+        int N = static_cast<int>(infected.size());
+        nums.reserve(N);
+        for (int i = 1; i <= N; ++i)
+            nums.push_back(i);
     }
     else {
-        nums->erase(
+        nums.erase(
             std::remove_if(
-                nums->begin(),
-                nums->end(),
+                nums.begin(),
+                nums.end(),
                 [&](int idx){
                     return idx < 1 || idx > static_cast<int>(infected.size());
                 }
             ),
-            nums->end()
+            nums.end()
         );
     }
 }
