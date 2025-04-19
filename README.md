@@ -49,17 +49,17 @@ ZamniVirus/
 Для установки и сборки проекта необходимо:
 1. Клонировать репозиторий:
 ```bash
-    git clone https://github.com/zamnisad/antivirus.git
+ git clone https://github.com/zamnisad/antivirus.git
 ```
 2. Создать папку для сборки проекта:
 ```bash
-    mkdir build
-    cd build
+ mkdir build
+ cd build
 ```
 3. Собрать проект с помощью CMake:
 ```bash
-    cmake ..
-    cmake --build .
+ cmake ..
+ cmake --build .
 ```
 После сборки проекта появится возможность запустить его, для этого необходимо 
 перейти в следующую директорию:
